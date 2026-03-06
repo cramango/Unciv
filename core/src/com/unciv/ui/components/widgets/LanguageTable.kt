@@ -18,6 +18,7 @@ import com.unciv.ui.screens.LanguagePickerScreen
 import com.unciv.ui.screens.basescreen.BaseScreen
 import com.unciv.ui.screens.civilopediascreen.FormattedLine
 import com.unciv.ui.screens.civilopediascreen.MarkupRenderer
+import com.unciv.models.metadata.LocaleCode
 import java.util.Locale
 
 
@@ -35,8 +36,8 @@ internal class LanguageTable(val language: String, val percentComplete: Int) : T
         if(ImageGetter.imageExists("FlagIcons/$language"))
             add(ImageGetter.getImage("FlagIcons/$language")).size(40f)
 
-        val spaceSplitLang = language.replace("_"," ")
-        add("$spaceSplitLang ($percentComplete%)".toLabel())
+        val displayName = getDisplayName(language)
+        add("$displayName ($percentComplete%)".toLabel())
         update("")
         touchable =
             Touchable.enabled // so click listener is activated when any part is clicked, not only children
@@ -51,6 +52,20 @@ internal class LanguageTable(val language: String, val percentComplete: Int) : T
     }
 
     companion object {
+        /**
+         * 한국어를 포함해 언어 이름을 더 알아보기 쉽게 표기한다.
+         * - 기본값: 번역 파일 이름을 공백으로 치환한 영문 이름
+         * - locale 매핑이 있으면 `영문 / 현지어` 형태로 병기
+         */
+        private fun getDisplayName(language: String): String {
+            val englishName = language.replace("_", " ")
+            val locale = LocaleCode.find(language)?.locale() ?: return englishName
+            val nativeName = locale.getDisplayLanguage(locale)
+            return if (nativeName.isBlank() || nativeName.equals(englishName, ignoreCase = true)) {
+                englishName
+            } else "$englishName / $nativeName"
+        }
+
         /** Extension to add the Language boxes to a Table, used both in OptionsPopup and in LanguagePickerScreen */
         fun Table.addLanguageTables(expectedWidth: Float): ArrayList<LanguageTable> {
             val languageTables = ArrayList<LanguageTable>()
