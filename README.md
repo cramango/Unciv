@@ -36,6 +36,13 @@ If you want a small, fast, moddable, FOSS, in-depth 4X that can still run on a p
 - Jars, APKs and Windows/Linux builds also available in [Releases](https://github.com/yairm210/Unciv/releases) (run jar with `java -jar Unciv.jar`) - *not recommended* since we update frequently and you will quickly become out-of-date
 - [Build from scratch](https://yairm210.github.io/Unciv/Developers/Building-Locally/#without-android-studio) if that's your thing
 
+## 한국어 사용법 (Korean Guide)
+
+- 게임 실행 후 **Options > Language** 로 이동합니다.
+- 언어 목록에서 **Korean / 한국어** 를 선택하면 즉시 한글 UI가 적용됩니다.
+- 번역은 커뮤니티 기반으로 계속 개선되므로 일부 문구는 영어로 보일 수 있습니다.
+- 한글 번역 기여는 위키의 [Translating guide](https://yairm210.github.io/Unciv/Translating/Translating/)를 참고해 주세요.
+
 ## What's the roadmap?
 
 In this order:
